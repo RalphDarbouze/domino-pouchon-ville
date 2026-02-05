@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Domino de Pouchon Pouchon Ville | Jwèt Domino Ayisyen sou Entènèt</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+    <style>
+        /* Diplome Animation */
+        .diplome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.5s;
+        }
+        
+        .diplome-container {
+            background: linear-gradient(45deg, #f5e6ca, #e8d4b2);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            border: 10px solid gold;
+            box-shadow: 0 0 50px gold;
+            animation: diplomePop 1s ease-out;
+        }
+        
+        .diplome-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.5em;
+            color: #8b4513;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+        
+        .diplome-text {
+            font-size: 1.8em;
+            color: #654321;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .diplome-signature {
+            margin-top: 30px;
+            font-family: cursive;
+            font-size: 1.5em;
+            color: #000;
+        }
+        
+        .diplome-close {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        
+        @keyframes diplomePop {
+            0% { transform: scale(0.1) rotate(-30deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Diplome Overlay -->
+    <div id="diplome-overlay" class="diplome-overlay">
+        <div class="diplome-container">
+            <div class="diplome-title">📜 DIPLÒM OFISYÈL</div>
+            <div class="diplome-text">MEN DIPLÒM MR DARBOUZE LA!</div>
+            <div class="diplome-text">🎓 GRAN MÈT DOMINO POUCHON VILLE 🎓</div>
+            <div class="diplome-text">🏆 CHANPYON ABSOLI 🏆</div>
+            <div class="diplome-signature">Siyati: _________<br>Dat: Jodi a</div>
+            <audio id="diplome-sound" preload="auto">
+                <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+            </audio>
+            <button class="diplome-close" onclick="closeDiplome()">Fèmen Diplòm lan</button>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <div class="header">
+                <h1>🎲 DOMINO DE POUCHON POUCHON VILLE</h1>
+                <p class="subtitle">Jwèt Domino Ayisyen Tradisyonèl - 4 moun kap jwe ansanm!</p>
+                <div class="haiti-flag">
+                    <span style="color: #00209f">█</span>
+                    <span style="color: #d21034">█</span>
+                    <span style="color: #000">█</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📥 Antre nan Jwèt la</h2>
+                <input type="text" id="player-name" placeholder="Non ou" maxlength="20" value="Jouè">
+                <input type="password" id="player-code" placeholder="Kòd espesyal (si w genyen)" maxlength="10">
+                
+                <div class="button-group">
+                    <button id="quick-play" class="btn-primary">
+                        <span class="icon">🚀</span> Jwe Vit
+                    </button>
+                    <button id="create-room" class="btn-secondary">
+                        <span class="icon">🔒</span> Kreye Chanm Privé
+                    </button>
+                    <button id="join-room" class="btn-secondary">
+                        <span class="icon">🔑</span> Antre nan Chanm
+                    </button>
+                </div>
+                
+                <div id="room-code-section" class="hidden">
+                    <input type="text" id="room-code-input" placeholder="Antre kòd chanm nan" maxlength="6">
+                    <button id="confirm-join" class="btn-primary">Antre</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📖 Kijan pou Jwe</h2>
+                <ul class="instructions">
+                    <li><span class="icon">👥</span> Fòk gen 4 moun pou kòmanse</li>
+                    <li><span class="icon">🎲</span> Dòb sis (6-6) kòmanse jwèt la</li>
+                    <li><span class="icon">🃏</span> Mete domino ki matche ak chif yo</li>
+                    <li><span class="icon">🏆</span> Premye moun ki rive 100 pwen genyen</li>
+                    <li><span class="icon">💬</span> Pale ak lòt jouè pandan jwèt la</li>
+                </ul>
+                
+                <button id="show-diplome" class="btn-small" onclick="showDiplome()">
+                    <span class="icon">📜</span> Gade Diplòm Mr Darbouze
+                </button>
+            </div>
+            
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-number" id="online-count">0</span>
+                    <span class="stat-label">Moun k'ap Jwe</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="games-played">1,234</span>
+                    <span class="stat-label">Jwèt Fini</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="diplome-shown">47</span>
+                    <span class="stat-label">Diplòm Bay</span>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>⭐ Se yon jwèt pou Pouchon Pouchon Ville! ⭐</p>
+                <p class="small">Si w jwe byen, w ka resevwa diplòm Mr Darbouze tou!</p>
+            </div>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobby-screen" class="screen">
+            <div class="lobby-header">
+                <h2>Chanm: <span id="room-code-display" class="room-code"></span></h2>
+                <button id="copy-room-code" class="btn-small">📋 Kopye Kòd la</button>
+                <button id="leave-lobby" class="btn-small btn-danger">← Soti</button>
+            </div>
+            
+            <div class="players-grid">
+                <template id="player-slot-template">
+                    <div class="player-slot">
+                        <div class="player-avatar">👤</div>
+                        <div class="player-name">Ap tann...</div>
+                        <div class="player-status">Vide</div>
+                        <div class="player-score hidden">0 pwen</div>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="lobby-controls">
+                <button id="start-game-btn" disabled>
+                    <span class="icon">🔄</span> Ap tann 4 jouè...
+                </button>
+                <div class="share-section">
+                    <p>Pataje kòd sa a ak zanmi ou:</p>
+                    <div class="code-display" id="share-code"></div>
+                    <p class="small">Ou kapab sèvi ak <span class="highlight">KOD ESPESYAL</span> pou gen diplòm!</p>
+                </div>
+            </div>
+            
+            <div class="lobby-chat">
+                <h3>📨 Chat</h3>
+                <div id="chat-messages" class="chat-messages">
+                    <div class="chat-message system">
+                        <span class="sender">Sistèm:</span>
+                        <span class="message">Byenveni nan Domino Pouchon Pouchon Ville!</span>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Tape yon mesaj...">
+                    <button id="send-chat">Voye</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="game-info">
+                    <div class="room-info">Chanm: <span id="current-room-code" class="room-code"></span></div>
+                    <div class="turn-indicator" id="turn-indicator">Se tou pa ou!</div>
+                    <div class="score-display" id="score-display">Pwen: 0</div>
+                    <button id="show-diplome-game" class="btn-tiny" onclick="showDiplome()">
+                        📜 Diplòm
+                    </button>
+                </div>
+                <button id="leave-game" class="btn-small btn-danger">Soti nan Jwèt</button>
+            </div>
+            
+            <div class="game-board">
+                <div class="domino-line-container">
+                    <div id="domino-line"></div>
+                </div>
+                <div class="boneyard">
+                    <div class="boneyard-label">Pil Domino</div>
+                    <div class="boneyard-count" id="boneyard-count">28</div>
+                    <button id="draw-btn" class="btn-action">🔽 Pran</button>
+                </div>
+            </div>
+            
+            <div class="player-hands">
+                <div class="opponent-hand" id="opponent-left">
+                    <div class="player-label">Jouè 2</div>
+                    <div class="hand-count">7 domino</div>
+                    <div class="hand-display"></div>
+                </div>
+                <div class="opponent-hand" id="opponent-top">
+                    <div class="player-label">Jouè 3</div>
+                    <div class="hand-count">7 domino</div>
+                    <div class="hand-display"></div>
+                </div>
+                <div class="opponent-hand" id="opponent-right">
+                    <div class="player-label">Jouè 4</div>
+                    <div class="hand-count">7 domino</div>
+                    <div class="hand-display"></div>
+                </div>
+            </div>
+            
+            <div class="my-hand-section">
+                <div class="hand-header">
+                    <div class="my-label">Men ou (<span id="my-hand-count">7</span> domino)</div>
+                    <div class="hand-controls">
+                        <button id="pass-btn" class="btn-action" disabled>↩️ Pa kapab Jwe</button>
+                        <button id="hint-btn" class="btn-action">💡 Konsèy</button>
+                    </div>
+                </div>
+                <div class="my-hand" id="my-hand"></div>
+            </div>
+            
+            <div class="game-bottom">
+                <div class="game-chat">
+                    <div id="game-chat-messages" class="chat-messages"></div>
+                    <input type="text" id="game-chat-input" placeholder="Pale isit...">
+                </div>
+                <div class="game-log" id="game-log">
+                    <h4>📝 Istwa Jwèt</h4>
+                    <div class="log-entries"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <div class="result-card">
+                <h2>🏁 Jwèt Fini!</h2>
+                <div class="winner-display" id="winner-name"></div>
+                
+                <div class="final-scores">
+                    <h3>⏱️ Pwen Final</h3>
+                    <table id="final-scores-table">
+                        <thead>
+                            <tr>
+                                <th>Jouè</th>
+                                <th>Pwen</th>
+                                <th>Statistik</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <div class="diplome-check">
+                    <label>
+                        <input type="checkbox" id="auto-diplome">
+                        Montre diplòm otomatikman si mwen genyen
+                    </label>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="play-again" class="btn-primary">
+                        <span class="icon">🔄</span> Jwe Ankò
+                    </button>
+                    <button id="back-to-home" class="btn-secondary">
+                        <span class="icon">🏠</span> Retounen Lakay
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Audio Elements -->
+    <audio id="sound-domino" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-win" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-chat" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <script src="game.js"></script>
+    <script src="peer-manager.js"></script>
+    
+    <script>
+        // Diplome functions
+        function showDiplome() {
+            const overlay = document.getElementById('diplome-overlay');
+            const sound = document.getElementById('diplome-sound');
+            const countElement = document.getElementById('diplome-shown');
+            
+            overlay.style.display = 'flex';
+            sound.play().catch(e => console.log("Audio error:", e));
+            
+            // Update counter
+            let count = parseInt(countElement.textContent);
+            countElement.textContent = (count + 1).toString();
+            
+            // Save to localStorage
+            localStorage.setItem('diplomeViews', (parseInt(localStorage.getItem('diplomeViews') || 0) + 1).toString());
+        }
+        
+        function closeDiplome() {
+            document.getElementById('diplome-overlay').style.display = 'none';
+        }
+        
+        // Check for special code in URL
+        function checkSpecialCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            if (code === 'DARBOUZE123' || code === 'POUCHON2024') {
+                setTimeout(() => {
+                    showDiplome();
+                    showToast("🎉 Ou jwenn kòd espesyal Mr Darbouze a!");
+                }, 2000);
+            }
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkSpecialCode();
+            
+            // Load diplome views count
+            const views = localStorage.getItem('diplomeViews') || '0';
+            document.getElementById('diplome-shown').textContent = views;
+        });
+        
+        // Simple toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

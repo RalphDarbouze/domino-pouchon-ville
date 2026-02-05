@@ -1,0 +1,671 @@
+/* Haitian Dominoes Theme - Domino de Pouchon Pouchon Ville */
+:root {
+    --haiti-blue: #00209f;
+    --haiti-red: #d21034;
+    --haiti-gold: #f2d16b;
+    --haiti-green: #28a745;
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --accent-color: #8b4513;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --border-radius: 10px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, var(--haiti-blue) 0%, var(--haiti-red) 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Screen */
+.header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--haiti-blue), var(--haiti-red));
+    color: white;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.header h1 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.haiti-flag {
+    margin-top: 15px;
+    font-size: 2em;
+    letter-spacing: 10px;
+}
+
+.card {
+    padding: 25px;
+    margin: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    color: var(--haiti-blue);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--haiti-gold);
+    padding-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--haiti-blue);
+    outline: none;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn-primary, .btn-secondary, .btn-small, .btn-danger {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--haiti-blue), var(--haiti-red));
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--haiti-gold);
+    color: #333;
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.btn-primary:active, .btn-secondary:active, .btn-danger:active {
+    transform: translateY(0);
+}
+
+.instructions {
+    list-style: none;
+    padding: 0;
+}
+
+.instructions li {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.icon {
+    font-size: 1.2em;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.9);
+    border-radius: var(--border-radius);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--haiti-blue);
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    background: rgba(0,0,0,0.2);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+/* Lobby Screen */
+.lobby-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--haiti-blue), var(--haiti-red));
+    color: white;
+}
+
+.room-code {
+    font-family: monospace;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 30px;
+}
+
+@media (min-width: 768px) {
+    .players-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.player-slot {
+    background: white;
+    border: 3px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-slot.occupied {
+    border-color: var(--haiti-green);
+    background: linear-gradient(135deg, #f8fff8, #e8f5e8);
+}
+
+.player-slot.you {
+    border-color: var(--haiti-blue);
+    background: linear-gradient(135deg, #f0f5ff, #e0e8ff);
+}
+
+.player-avatar {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.player-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.player-status {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+}
+
+.lobby-controls {
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    border-top: 2px solid #eee;
+}
+
+.code-display {
+    font-family: monospace;
+    font-size: 2em;
+    letter-spacing: 5px;
+    padding: 15px;
+    background: white;
+    border: 3px dashed var(--haiti-gold);
+    border-radius: var(--border-radius);
+    margin: 15px auto;
+    max-width: 300px;
+}
+
+.highlight {
+    background: var(--haiti-gold);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.lobby-chat {
+    padding: 20px;
+    border-top: 2px solid #eee;
+}
+
+.chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    margin-bottom: 10px;
+    background: white;
+}
+
+.chat-message {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: #f8f9fa;
+}
+
+.chat-message.system {
+    background: #e3f2fd;
+    font-style: italic;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Game Screen */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, var(--haiti-blue), var(--haiti-red));
+    color: white;
+}
+
+.game-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.turn-indicator {
+    background: var(--haiti-gold);
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.game-board {
+    position: relative;
+    padding: 30px;
+    min-height: 200px;
+    background: linear-gradient(135deg, #2d3748, #4a5568);
+    border-radius: var(--border-radius);
+    margin: 20px;
+}
+
+.domino-line-container {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#domino-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.boneyard {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: white;
+    min-width: 100px;
+}
+
+.boneyard-count {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.btn-action {
+    background: var(--haiti-gold);
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-action:hover {
+    background: #e6c95c;
+    transform: translateY(-2px);
+}
+
+.player-hands {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+}
+
+.opponent-hand {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.opponent-hand.active {
+    border-color: var(--haiti-gold);
+    background: #fff8e1;
+}
+
+.my-hand-section {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 3px solid var(--haiti-blue);
+}
+
+.hand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.my-hand {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.domino {
+    width: 80px;
+    height: 40px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.domino:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.domino.selected {
+    border-color: var(--haiti-red);
+    background: #ffe6e6;
+    transform: translateY(-10px);
+}
+
+.domino-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.domino-dot {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+    margin: 1px;
+}
+
+.game-bottom {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.game-chat, .game-log {
+    flex: 1;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.game-chat {
+    min-height: 200px;
+}
+
+.game-log {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-entries {
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+/* Game Over Screen */
+.result-card {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 40px;
+    text-align: center;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.winner-display {
+    font-size: 2.5em;
+    color: var(--haiti-blue);
+    margin: 20px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f0f5ff, #e0e8ff);
+    border-radius: var(--border-radius);
+    border: 3px solid var(--haiti-gold);
+}
+
+.final-scores table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.final-scores th, .final-scores td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.final-scores th {
+    background: #f8f9fa;
+    color: var(--haiti-blue);
+}
+
+.final-scores tr:hover {
+    background: #f8f9fa;
+}
+
+.diplome-check {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff8e1;
+    border-radius: var(--border-radius);
+    border: 2px dashed var(--haiti-gold);
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--haiti-red);
+    color: white;
+    padding: 15px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.small {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.btn-tiny {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-bottom {
+        flex-direction: column;
+    }
+    
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .player-hands {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .opponent-hand {
+        min-width: auto;
+    }
+}

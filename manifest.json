@@ -1,0 +1,16 @@
+{
+  "name": "Domino de Pouchon Pouchon Ville",
+  "short_name": "Domino Pouchon",
+  "description": "Jwèt Domino Ayisyen sou Entènèt - Jwe ak zanmi ou!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#00209f",
+  "theme_color": "#d21034",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
