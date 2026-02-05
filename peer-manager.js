@@ -1,50 +1,69 @@
-// Simple peer-to-peer connection manager
-class PeerManager {
+// Updated Peer Manager for mixed human/AI games
+class EnhancedPeerManager {
     constructor(game) {
         this.game = game;
         this.connections = new Map();
-        this.isConnected = false;
+        this.aiPlayers = new Map();
     }
     
-    connectToPeer(peerId) {
-        if (this.connections.has(peerId)) return;
+    createAIPlayer(name, difficulty) {
+        const aiId = `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const ai = new AIPlayer(name, difficulty);
         
-        const conn = this.game.peer.connect(peerId, {
-            reliable: true,
-            serialization: 'json'
-        });
+        this.aiPlayers.set(aiId, ai);
         
-        conn.on('open', () => {
-            console.log('Connected to:', peerId);
-            this.connections.set(peerId, conn);
-            this.game.setupConnection(conn);
-        });
+        // Simulate connection
+        const fakeConnection = {
+            peer: aiId,
+            playerName: name,
+            send: (data) => {
+                // AI processes data
+                this.processAIData(aiId, data);
+            },
+            close: () => {
+                this.aiPlayers.delete(aiId);
+            },
+            open: true
+        };
         
-        conn.on('error', (err) => {
-            console.error('Connection error:', err);
-        });
+        return fakeConnection;
     }
     
-    disconnectFromPeer(peerId) {
-        const conn = this.connections.get(peerId);
-        if (conn) {
-            conn.close();
-            this.connections.delete(peerId);
+    processAIData(aiId, data) {
+        const ai = this.aiPlayers.get(aiId);
+        if (!ai) return;
+        
+        // AI processes game state updates
+        if (data.type === 'gameState') {
+            ai.hand = data.state.players.find(p => p.id === aiId)?.hand || [];
+            
+            // If it's AI's turn, make a move
+            const currentPlayerId = data.state.players[data.state.currentPlayerIndex]?.id;
+            if (currentPlayerId === aiId) {
+                this.scheduleAIMove(aiId, ai);
+            }
         }
     }
     
-    broadcast(data) {
-        this.connections.forEach((conn, peerId) => {
-            if (conn.open) {
-                conn.send(data);
-            }
-        });
+    scheduleAIMove(aiId, ai) {
+        // AI "thinks" before making a move
+        const thinkTime = ai.currentSettings.thinkTime;
+        
+        setTimeout(() => {
+            this.executeAIMove(aiId, ai);
+        }, thinkTime);
     }
     
-    disconnectAll() {
-        this.connections.forEach((conn, peerId) => {
-            conn.close();
-        });
-        this.connections.clear();
-    }
-}
+    executeAIMove(aiId, ai) {
+        // Get current game state
+        if (!this.game.gameState) return;
+        
+        // AI chooses action
+        const dominoLine = this.game.gameState.dominoLine;
+        const chosenDomino = ai.chooseDominoToPlay(dominoLine);
+        
+        if (chosenDomino) {
+            const orientation = ai.getOrientation(chosenDomino, dominoLine);
+            this.game.playDominoForAI(aiId, chosenDomino, orientation);
+        } else {
+           
