@@ -66,4 +66,12 @@ class EnhancedPeerManager {
             const orientation = ai.getOrientation(chosenDomino, dominoLine);
             this.game.playDominoForAI(aiId, chosenDomino, orientation);
         } else {
-           
+            const action = ai.decideToDrawOrPass(this.game.gameState.remainingDominoes.length);
+            if (action === 'draw') {
+                this.game.drawDominoForAI(aiId);
+            } else {
+                this.game.passTurnForAI(aiId);
+            }
+        }
+    }
+}
